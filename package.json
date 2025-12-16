@@ -1,7 +1,14 @@
 {
   "name": "eslint-config-at-26",
-  "version": "25.12.20",
-  "main": "index.js",
+  "version": "25.12.22",
+  "type": "module",
+  "main": "eslint.config.js",
+  "exports": {
+    ".": "./eslint.config.js"
+  },
+  "files": [
+    "eslint.config.js"
+  ],
   "keywords": [
     "eslint",
     "eslintconfig",
