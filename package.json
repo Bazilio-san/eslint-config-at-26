@@ -1,6 +1,6 @@
 {
   "name": "eslint-config-at-26",
-  "version": "25.12.22",
+  "version": "25.12.23",
   "type": "module",
   "main": "eslint.config.js",
   "exports": {

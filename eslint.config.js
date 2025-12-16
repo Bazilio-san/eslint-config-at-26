@@ -89,7 +89,7 @@ const sharedRules = {
   ],
 
   'prefer-arrow/prefer-arrow-functions': ['warn', {
-    disallowPrototype: true,
+    disallowPrototype: false,
     singleReturnOnly: false,
     classPropertiesAllowed: true,
     allowStandaloneDeclarations: true,
