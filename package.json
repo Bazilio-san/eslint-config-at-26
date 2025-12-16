@@ -1,6 +1,6 @@
 {
   "name": "eslint-config-at-26",
-  "version": "25.12.19",
+  "version": "25.12.20",
   "main": "index.js",
   "keywords": [
     "eslint",

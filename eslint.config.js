@@ -155,7 +155,7 @@ export default [
       'doc/',
       'node_modules/',
       'coverage/',
-      '**/*.d.ts',
+      '/**/*.min.js',
     ],
   },
 ];
