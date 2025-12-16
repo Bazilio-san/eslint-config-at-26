@@ -5,6 +5,21 @@ import preferArrow from 'eslint-plugin-prefer-arrow';
 import unusedImports from 'eslint-plugin-unused-imports';
 import globals from 'globals';
 
+const sharedGlobals = {
+  ...globals.browser,
+  ...globals.node,
+  jquery: 'readonly',
+  ga: 'readonly',
+  __statics: 'readonly',
+  chrome: 'readonly',
+};
+
+const sharedPlugins = {
+  'prefer-arrow': preferArrow,
+  import: importPlugin,
+  'unused-imports': unusedImports,
+};
+
 const sharedRules = {
   'comma-dangle': ['warn', 'always-multiline'],
   'consistent-return': 'off',
@@ -16,7 +31,6 @@ const sharedRules = {
   'import/extensions': ['error', 'always', {
     ts: 'never',
     js: 'always',
-    pattern: { '**/*.ts': 'always' },
     ignorePackages: true,
   }],
   'import/first': 'off',
@@ -73,6 +87,13 @@ const sharedRules = {
     'warn',
     { args: 'after-used', argsIgnorePattern: '^_', vars: 'all', varsIgnorePattern: '^_', ignoreRestSiblings: true },
   ],
+
+  'prefer-arrow/prefer-arrow-functions': ['warn', {
+    disallowPrototype: true,
+    singleReturnOnly: false,
+    classPropertiesAllowed: true,
+    allowStandaloneDeclarations: true,
+  }],
 };
 
 export default [
@@ -86,35 +107,22 @@ export default [
         sourceType: 'module',
         project: './tsconfig.json',
       },
-      globals: {
-        ...globals.browser,
-        ...globals.node,
-        jquery: 'readonly',
-        ga: 'readonly',
-        __statics: 'readonly',
-        chrome: 'readonly',
-      },
+      globals: sharedGlobals,
     },
     plugins: {
-      'prefer-arrow': preferArrow,
+      ...sharedPlugins,
       '@typescript-eslint': tseslint,
-      import: importPlugin,
-      'unused-imports': unusedImports,
     },
     rules: {
       ...tseslint.configs.recommended.rules,
       ...sharedRules,
 
       '@typescript-eslint/ban-ts-comment': 'off',
-      '@typescript-eslint/ban-types': 'off',
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-shadow': 'error',
       '@typescript-eslint/no-this-alias': 'off',
-      '@typescript-eslint/no-unused-vars': [
-        'warn',
-        { argsIgnorePattern: '^_', caughtErrorsIgnorePattern: '^_', varsIgnorePattern: '^_' },
-      ],
+      '@typescript-eslint/no-unused-vars': 'off',
       '@typescript-eslint/no-var-requires': 'off',
       '@typescript-eslint/no-unsafe-function-type': 'off',
       '@typescript-eslint/no-unsafe-member-access': 'off',
@@ -128,21 +136,10 @@ export default [
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
-      globals: {
-        ...globals.browser,
-        ...globals.node,
-        jquery: 'readonly',
-        ga: 'readonly',
-        __statics: 'readonly',
-        chrome: 'readonly',
-      },
+      globals: sharedGlobals,
     },
-    plugins: {
-      'prefer-arrow': preferArrow,
-      import: importPlugin,
-      'unused-imports': unusedImports,
-    },
-    rules: { ...sharedRules },
+    plugins: sharedPlugins,
+    rules: sharedRules,
   },
   // Ignores
   {
@@ -154,7 +151,7 @@ export default [
       '_tmp/',
       'config/',
       'deploy/',
-      '**/dist/**/*.*',
+      '**/dist/',
       'doc/',
       'node_modules/',
       'coverage/',
